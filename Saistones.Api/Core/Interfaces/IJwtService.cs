@@ -1,0 +1,8 @@
+﻿
+namespace Saistones.Api.Core.Interfaces
+{
+    public interface IJwtService
+    {
+        string GenerateToken(string userId, string email);
+    }
+}

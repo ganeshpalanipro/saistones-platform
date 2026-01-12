@@ -1,0 +1,6 @@
+@Saistones.Api_HostAddress = http://localhost:5130
+
+GET {{Saistones.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
