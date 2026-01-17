@@ -5,6 +5,7 @@ using Saistones.Application.Services;
 
 namespace Saistones.Api.Controllers
 {
+   
     [Authorize]
     [ApiController]
     [Route("api/users")]

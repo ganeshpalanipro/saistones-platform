@@ -11,6 +11,7 @@ using Saistones.Infrastructure.Repositories;
 using Saistones.Application.Services;
 
 using System.Text;
+using Saistones.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -110,8 +111,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
