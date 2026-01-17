@@ -4,6 +4,12 @@ using Microsoft.OpenApi;
 using Saistones.Api.Configurations;
 using Saistones.Api.Core.Interfaces;
 using Saistones.Api.Infrastructure.Auth;
+using Microsoft.EntityFrameworkCore;
+using Saistones.Infrastructure.Data;
+using Saistones.Domain.Interfaces;
+using Saistones.Infrastructure.Repositories;
+using Saistones.Application.Services;
+
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +49,13 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+//PostgreSQL Configuration
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
+
 // --------------------------------------------------
 // JWT CONFIGURATION
 // --------------------------------------------------
@@ -78,6 +91,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // --------------------------------------------------
 
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<UserService>();
+
 
 var app = builder.Build();
 

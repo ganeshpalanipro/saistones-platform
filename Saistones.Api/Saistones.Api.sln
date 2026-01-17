@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saistones.Domain", "..\Sais
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saistones.Application", "..\Saistones.Application\Saistones.Application.csproj", "{717E44E4-75E1-4642-B7C9-7D356909140F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saistones.Infrastructure", "..\Saistones.Infrastructure\Saistones.Infrastructure.csproj", "{6C91A71A-2A12-4A37-8CE2-A1EB326204FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{717E44E4-75E1-4642-B7C9-7D356909140F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{717E44E4-75E1-4642-B7C9-7D356909140F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{717E44E4-75E1-4642-B7C9-7D356909140F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C91A71A-2A12-4A37-8CE2-A1EB326204FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C91A71A-2A12-4A37-8CE2-A1EB326204FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C91A71A-2A12-4A37-8CE2-A1EB326204FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C91A71A-2A12-4A37-8CE2-A1EB326204FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
