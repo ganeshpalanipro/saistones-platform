@@ -2,28 +2,30 @@
 using Microsoft.IdentityModel.Tokens;
 using Saistones.Api.Configurations;
 using Saistones.Api.Core.Interfaces;
+using Saistones.Application.DTOs;
+using Saistones.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace Saistones.Api.Infrastructure.Auth;
 
-public class JwtService : IJwtService
+public class JwtService1 
 {
-    private readonly JwtSettings _jwtSettings;
+   /* private readonly JwtSettings _jwtSettings;
 
-    public JwtService(IOptions<JwtSettings> jwtSettings)
+    public JwtService(IOptions<JwtSettings> jwtSettings, IConfiguration config)
     {
-        _jwtSettings = jwtSettings.Value;
+        _jwtSettings = config.GetSection("JwtSettings").Get<JwtSettings>()!;
     }
 
-    public string GenerateToken(string userId, string email)
+    public string GenerateToken(UserDto user)
     {
-        var claims = new List<Claim>
+        var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId),
-            new Claim(JwtRegisteredClaimNames.Email, email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim("displayName", user.DisplayName)
         };
 
         var key = new SymmetricSecurityKey(
@@ -44,5 +46,5 @@ public class JwtService : IJwtService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+    }*/
 }

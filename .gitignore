@@ -2,6 +2,21 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Saistones.Api/.vs/Saistones.Api
-/Saistones.Api/bin/Debug/net9.0
-/Saistones.Api/obj
+# Build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+
+# IDEs
+.idea/
+.vscode/
+
+# OS files
+Thumbs.db
+.DS_Store
