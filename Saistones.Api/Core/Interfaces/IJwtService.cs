@@ -4,7 +4,7 @@ using Saistones.Domain.Entities;
 
 namespace Saistones.Api.Core.Interfaces
 {
-    public interface IJwtService
+    public interface IJwtService1
     {
         string GenerateToken(UserDto user);
     }

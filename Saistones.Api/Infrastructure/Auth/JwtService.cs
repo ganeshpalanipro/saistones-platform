@@ -10,9 +10,9 @@ using System.Text;
 
 namespace Saistones.Api.Infrastructure.Auth;
 
-public class JwtService : IJwtService
+public class JwtService1 
 {
-    private readonly JwtSettings _jwtSettings;
+   /* private readonly JwtSettings _jwtSettings;
 
     public JwtService(IOptions<JwtSettings> jwtSettings, IConfiguration config)
     {
@@ -46,5 +46,5 @@ public class JwtService : IJwtService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+    }*/
 }

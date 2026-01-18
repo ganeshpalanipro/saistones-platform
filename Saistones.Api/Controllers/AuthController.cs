@@ -5,7 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using Saistones.Application.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Saistones.Application.Interfaces;
 using System.Text;
+using Saistones.Application.DTOs;
 
 namespace Saistones.Api.Controllers;
 
@@ -14,19 +16,19 @@ namespace Saistones.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IJwtService _jwtService;
-    private readonly UserService _userService;
+    private readonly IUserService _userService;
 
-    public AuthController(UserService userService, IJwtService jwtService)
+    public AuthController(IUserService userService, IJwtService jwtService)
     {
         _userService = userService;
         _jwtService = jwtService;
     }
 
-    [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<IActionResult> Login([FromBody] string email)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserDto dto)
     {
-        var user = await _userService.GetByEmailAsync(email);
+        var user = await _userService.ValidateUserAsync(dto);
         if (user == null)
             return Unauthorized("User not found");
 
@@ -37,4 +39,23 @@ public class AuthController : ControllerBase
             accessToken = token
         });
     }
+
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
+    {
+        var existing = await _userService.GetByEmailAsync(dto.Email);
+        if (existing != null)
+            return BadRequest("User already exists");
+
+        var user = await _userService.RegisterAsync(dto);
+
+        var token = _jwtService.GenerateToken(user);
+
+        return Ok(new
+        {
+            accessToken = token
+        });
+    }
+
 }

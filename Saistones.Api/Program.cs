@@ -9,9 +9,11 @@ using Saistones.Infrastructure.Data;
 using Saistones.Domain.Interfaces;
 using Saistones.Infrastructure.Repositories;
 using Saistones.Application.Services;
-
 using System.Text;
+using Saistones.Infrastructure.Security;
 using Saistones.Api.Middlewares;
+using Saistones.Application.Interfaces;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,9 +93,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // DEPENDENCY INJECTION
 // --------------------------------------------------
 
-builder.Services.AddScoped<IJwtService, JwtService>();
+
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 
 var app = builder.Build();

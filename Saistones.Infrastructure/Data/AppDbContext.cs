@@ -19,15 +19,6 @@ namespace Saistones.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                    Email = "ganesh@test.com",
-                    DisplayName = "Ganesh"
-                }
-            );
         }
 
 

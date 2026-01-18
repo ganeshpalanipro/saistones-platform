@@ -5,17 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Saistones.Application.Interfaces;
 using System.Threading.Tasks;
 
 namespace Saistones.Application.Services
 {
-    public class UserService
+    public class UserService :IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<UserDto?> GetByEmailAsync(string email)
@@ -31,10 +34,64 @@ namespace Saistones.Application.Services
             };
         }
 
-        public async Task<User> CreateAsync(User user)
+
+        public async Task<UserDto> CreateAsync(UserDto dto)
         {
-            user.Id = Guid.NewGuid();
+            var entity = new User
+            {
+                Id = Guid.NewGuid(),
+                Email = dto.Email,
+                DisplayName = dto.DisplayName
+            };
+
+            await _userRepository.AddAsync(entity);
+
+            return new UserDto
+            {
+                Id = entity.Id,
+                Email = entity.Email,
+                DisplayName = entity.DisplayName
+            };
+        }
+
+        public async Task<User> RegisterAsync(RegisterUserDto dto)
+        {
+            _passwordHasher.CreatePasswordHash(
+             dto.Password,
+             out var hash,
+             out var salt
+             );
+
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Email = dto.Email,
+                DisplayName = dto.DisplayName,
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                IsActive = true
+            };
+
             await _userRepository.AddAsync(user);
+            return user;
+        }
+
+        public async Task<User> ValidateUserAsync(LoginUserDto dto)
+        {
+            var user = await _userRepository.GetByEmailAsync(dto.Email);
+
+            if (user == null)
+                throw new UnauthorizedAccessException("Invalid credentials");
+
+            var valid = _passwordHasher.VerifyPassword(
+                dto.Password,
+                user.PasswordHash,
+                user.PasswordSalt
+            );
+
+            if (!valid)
+                throw new UnauthorizedAccessException("Invalid credentials");
+
             return user;
         }
 
