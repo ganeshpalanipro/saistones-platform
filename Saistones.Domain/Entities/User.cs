@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Saistones.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Saistones.Domain.Entities
         public byte[] PasswordSalt { get; set; } = null!;
 
         public bool IsActive { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
     }
 }

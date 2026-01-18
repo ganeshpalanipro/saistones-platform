@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Saistones.Application.DTOs;
 using Saistones.Application.Interfaces;
 using Saistones.Domain.Entities;
+using Saistones.Domain.Enums;
 
 namespace Saistones.Infrastructure.Security
 {
@@ -23,7 +24,8 @@ namespace Saistones.Infrastructure.Security
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim("displayName", user.DisplayName)
+            new Claim("displayName", user.DisplayName),
+            new Claim(ClaimTypes.Role,Enum.GetName(typeof(UserRole), user.Role)!)
         };
 
             var key = new SymmetricSecurityKey(
