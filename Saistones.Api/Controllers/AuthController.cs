@@ -36,7 +36,12 @@ public class AuthController : ControllerBase
     {
         var user = await _userService.ValidateUserAsync(dto);
         if (user == null)
-            return Unauthorized("User not found");
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid email or password"
+            });
+        }
 
         //  Generate access token (JWT)
         var token = _jwtService.GenerateToken(user);

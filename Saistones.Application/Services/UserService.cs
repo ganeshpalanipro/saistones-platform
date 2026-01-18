@@ -82,10 +82,11 @@ namespace Saistones.Application.Services
             var user = await _userRepository.GetByEmailAsync(dto.Email);
 
             if (user == null)
-                throw new UnauthorizedAccessException("Invalid credentials");
-            // 🔒 BLOCK INACTIVE USERS HERE
+                return null;
+
+            // BLOCK INACTIVE USERS HERE
             if (!user.IsActive)
-                throw new UnauthorizedAccessException("User is inactive");
+                return null;
 
             var valid = _passwordHasher.VerifyPassword(
                 dto.Password,
@@ -94,7 +95,7 @@ namespace Saistones.Application.Services
             );
 
             if (!valid)
-                throw new UnauthorizedAccessException("Invalid credentials");
+                return null;
 
             return user;
         }
