@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Saistones.Application.Services;
+using Saistones.Domain.Entities;
 
 namespace Saistones.Api.Controllers
 {
-   
+
     [Authorize]
     [ApiController]
     [Route("api/users")]
@@ -27,5 +28,13 @@ namespace Saistones.Api.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] User user)
+        {
+            var created = await _userService.CreateAsync(user);
+            return CreatedAtAction(nameof(GetByEmail), new { email = created.Email }, created);
+        }
+
     }
 }

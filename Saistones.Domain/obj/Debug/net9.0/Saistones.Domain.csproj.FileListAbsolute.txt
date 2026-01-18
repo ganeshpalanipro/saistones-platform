@@ -1,0 +1,12 @@
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\bin\Debug\net9.0\Saistones.Domain.deps.json
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\bin\Debug\net9.0\Saistones.Domain.dll
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\bin\Debug\net9.0\Saistones.Domain.pdb
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.AssemblyInfoInputs.cache
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.AssemblyInfo.cs
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.csproj.CoreCompileInputs.cache
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.sourcelink.json
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.dll
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\refint\Saistones.Domain.dll
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\Saistones.Domain.pdb
+D:\Freelance_projects\Sai Healing Studio\saistones-platform\Saistones.Domain\obj\Debug\net9.0\ref\Saistones.Domain.dll

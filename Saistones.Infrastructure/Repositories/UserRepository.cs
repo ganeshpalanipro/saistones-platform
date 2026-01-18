@@ -22,5 +22,12 @@ namespace Saistones.Infrastructure.Repositories
         {
             return _db.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
+
+        public async Task AddAsync(User user)
+        {
+            _db.Users.Add(user);
+            await _db.SaveChangesAsync();
+        }
+
     }
 }

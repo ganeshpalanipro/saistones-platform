@@ -13,7 +13,23 @@ namespace Saistones.Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
         {
+
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                    Email = "ganesh@test.com",
+                    DisplayName = "Ganesh"
+                }
+            );
+        }
+
 
         public DbSet<User> Users => Set<User>();
     }

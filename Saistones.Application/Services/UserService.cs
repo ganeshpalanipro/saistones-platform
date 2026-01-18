@@ -1,4 +1,5 @@
 ﻿using Saistones.Application.DTOs;
+using Saistones.Domain.Entities;
 using Saistones.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,13 @@ namespace Saistones.Application.Services
                 DisplayName = user.DisplayName
             };
         }
+
+        public async Task<User> CreateAsync(User user)
+        {
+            user.Id = Guid.NewGuid();
+            await _userRepository.AddAsync(user);
+            return user;
+        }
+
     }
 }
