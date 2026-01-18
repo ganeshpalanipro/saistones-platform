@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FluentValidation;
+using Saistones.Application.DTOs;
+
+namespace Saistones.Application.Validators
+{
+    public class RegisterUserDtoValidator:AbstractValidator<RegisterUserDto>
+    {
+        public RegisterUserDtoValidator()
+        {
+            RuleFor(x => x.Email)
+                .NotEmpty().EmailAddress();
+
+            RuleFor(x => x.Password)
+                .NotEmpty().MinimumLength(6);
+
+            RuleFor(x => x.DisplayName)
+                .NotEmpty().MaximumLength(100);
+        }
+    }
+}

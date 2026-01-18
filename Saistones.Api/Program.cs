@@ -13,6 +13,9 @@ using System.Text;
 using Saistones.Infrastructure.Security;
 using Saistones.Api.Middlewares;
 using Saistones.Application.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Saistones.Application.Validators;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,6 +61,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+//Fluent Validation:
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<LoginUserDtoValidator>();
 
 // --------------------------------------------------
 // JWT CONFIGURATION
