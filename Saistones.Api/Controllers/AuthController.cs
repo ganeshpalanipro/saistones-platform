@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Saistones.Api.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Saistones.Application.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Saistones.Api.Controllers;
 
@@ -8,24 +14,27 @@ namespace Saistones.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IJwtService _jwtService;
+    private readonly UserService _userService;
 
-    public AuthController(IJwtService jwtService)
+    public AuthController(UserService userService, IJwtService jwtService)
     {
+        _userService = userService;
         _jwtService = jwtService;
     }
 
     [HttpPost("login")]
-    public IActionResult Login()
+    [AllowAnonymous]
+    public async Task<IActionResult> Login([FromBody] string email)
     {
-        // TEMP: hardcoded user (we’ll replace with DB later)
-        var userId = "1";
-        var email = "admin@saistones.com";
+        var user = await _userService.GetByEmailAsync(email);
+        if (user == null)
+            return Unauthorized("User not found");
 
-        var token = _jwtService.GenerateToken(userId, email);
+        var token = _jwtService.GenerateToken(user);
 
         return Ok(new
         {
-            access_token = token
+            accessToken = token
         });
     }
 }

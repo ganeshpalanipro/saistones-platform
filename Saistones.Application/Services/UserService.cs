@@ -25,6 +25,7 @@ namespace Saistones.Application.Services
 
             return new UserDto
             {
+                Id = user.Id,
                 Email = user.Email,
                 DisplayName = user.DisplayName
             };
