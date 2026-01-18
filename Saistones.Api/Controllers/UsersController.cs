@@ -38,5 +38,53 @@ namespace Saistones.Api.Controllers
             return CreatedAtAction(nameof(GetByEmail), new { email = created.Email }, created);
         }
 
+        [Authorize]
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(new
+            {
+                user.Id,
+                user.Email,
+                user.DisplayName,
+                user.IsActive
+            });
+        }
+
+        [Authorize]
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserDto dto)
+        {
+            var user = await _userService.UpdateAsync(id, dto);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(new
+            {
+                user.Id,
+                user.Email,
+                user.DisplayName
+            });
+        }
+
+        [Authorize]
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var success = await _userService.DeleteAsync(id);
+
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+
     }
 }

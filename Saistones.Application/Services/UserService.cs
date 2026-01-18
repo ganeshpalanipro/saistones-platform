@@ -8,6 +8,7 @@ using System.Text;
 using Saistones.Application.Interfaces;
 using System.Threading.Tasks;
 
+
 namespace Saistones.Application.Services
 {
     public class UserService :IUserService
@@ -82,6 +83,9 @@ namespace Saistones.Application.Services
 
             if (user == null)
                 throw new UnauthorizedAccessException("Invalid credentials");
+            // 🔒 BLOCK INACTIVE USERS HERE
+            if (!user.IsActive)
+                throw new UnauthorizedAccessException("User is inactive");
 
             var valid = _passwordHasher.VerifyPassword(
                 dto.Password,
@@ -93,6 +97,38 @@ namespace Saistones.Application.Services
                 throw new UnauthorizedAccessException("Invalid credentials");
 
             return user;
+        }
+
+
+
+        public async Task<User?> GetByIdAsync(Guid id)
+        {
+            return await _userRepository.GetByIdAsync(id);
+        }
+
+        public async Task<User?> UpdateAsync(Guid id, UpdateUserDto dto)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null) return null;
+
+            user.Email = dto.Email;
+            user.DisplayName = dto.DisplayName;
+            if (dto.IsActive.HasValue)
+                user.IsActive = dto.IsActive.Value;
+
+
+            await _userRepository.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null) return false;
+
+            user.IsActive = false;
+            await _userRepository.SaveChangesAsync();
+            return true;
         }
 
     }

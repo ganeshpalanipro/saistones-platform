@@ -14,6 +14,11 @@ namespace Saistones.Application.Interfaces
         Task<UserDto> CreateAsync(UserDto user);
         Task<User> RegisterAsync(RegisterUserDto dto);
         Task<User> ValidateUserAsync(LoginUserDto dto);
+        Task<User?> GetByIdAsync(Guid id);
+        Task<User?> UpdateAsync(Guid id, UpdateUserDto dto);
+
+        Task<bool> DeleteAsync(Guid id);
+
 
     }
 }
